@@ -9,14 +9,14 @@ class Position {
   final double lat;
   final double lon;
   final String country;
-  final String state;
+  final String? state;
 
   const Position({
     required this.name,
     required this.lat,
     required this.lon,
     required this.country,
-    required this.state,
+    this.state,
   });
 
   factory Position.fromJson(Map<String, dynamic> json) {
@@ -25,12 +25,15 @@ class Position {
         lat: json['lat'] as double,
         lon: json['lon'] as double,
         country: json['country'] as String,
-        state: json['state'] as String);
+        state: json['state'] != null ? json['state'] as String : '');
   }
 }
 
 Future<List<Position>> fetchPositions(String cityName) async {
   final response = await http.get(Uri.parse(
+      'http://api.openweathermap.org/geo/1.0/direct?q=$cityName&limit=5&appid=${dotenv.env['API_KEY']}'));
+
+  print(Uri.parse(
       'http://api.openweathermap.org/geo/1.0/direct?q=$cityName&limit=5&appid=${dotenv.env['API_KEY']}'));
 
   var positions = <Position>[];

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'controllers/geocoding_controller.dart';
+import 'package:weather_app/screens/search_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import 'controllers/geocoding_controller.dart';
 
 Future main() async {
   await dotenv.load(fileName: '.env');
-  try {
-    var positions = await fetchPositions('Rio de Janeiro');
-  } catch (err) {
-    print(err);
-  }
-  // runApp(WeatherApp());
+  // try {
+  //   var positions = await fetchPositions('Rio de Janeiro');
+  // } catch (err) {
+  //   print(err);
+  // }
+  runApp(WeatherApp());
 }
 
 class WeatherApp extends StatelessWidget {
@@ -22,7 +24,7 @@ class WeatherApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 25, 43, 80)),
         useMaterial3: true,
       ),
-      home: const Placeholder(),
+      home: SearchScreen(),
     );
   }
 }
