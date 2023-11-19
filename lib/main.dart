@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'controllers/geocoding_controller.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() => runApp(WeatherApp());
+Future main() async {
+  await dotenv.load(fileName: '.env');
+  try {
+    var positions = await fetchPositions('Rio de Janeiro');
+  } catch (err) {
+    print(err);
+  }
+  // runApp(WeatherApp());
+}
 
 class WeatherApp extends StatelessWidget {
   const WeatherApp({super.key});
