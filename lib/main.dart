@@ -6,11 +6,7 @@ import 'controllers/geocoding_controller.dart';
 
 Future main() async {
   await dotenv.load(fileName: '.env');
-  // try {
-  //   var positions = await fetchPositions('Rio de Janeiro');
-  // } catch (err) {
-  //   print(err);
-  // }
+
   runApp(WeatherApp());
 }
 

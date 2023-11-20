@@ -33,9 +33,6 @@ Future<List<Position>> fetchPositions(String cityName) async {
   final response = await http.get(Uri.parse(
       'http://api.openweathermap.org/geo/1.0/direct?q=$cityName&limit=5&appid=${dotenv.env['API_KEY']}'));
 
-  print(Uri.parse(
-      'http://api.openweathermap.org/geo/1.0/direct?q=$cityName&limit=5&appid=${dotenv.env['API_KEY']}'));
-
   var positions = <Position>[];
 
   if (response.statusCode == 200) {
@@ -47,6 +44,6 @@ Future<List<Position>> fetchPositions(String cityName) async {
 
     return positions;
   } else {
-    throw Exception('Failed to fetch city weather data');
+    throw Exception('Failed to fetch city coodinates');
   }
 }
