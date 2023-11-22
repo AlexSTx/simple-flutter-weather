@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/screens/weather_screen.dart';
 import '../controllers/geocoding_controller.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -94,7 +95,12 @@ class CitySearchResult extends StatelessWidget {
       subtitle: Text(city.country),
       trailing: IconButton(
         icon: const Icon(Icons.arrow_outward),
-        onPressed: () => {},
+        onPressed: () async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => WeatherScreen(lat: city.lat, lon: city.lon)),
+          );
+        },
       ),
     );
   }
