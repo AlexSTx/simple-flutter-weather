@@ -31,20 +31,24 @@ class _WeatherScreenState extends State<WeatherScreen> {
     for (var df in dailyForecasts) {
       var card = Card(
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 12.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-                    Text(DateFormat('EEEE dd/MM/yyyy').format(df.date)),
+                    Text(DateFormat('EEEE dd/MM/yyyy').format(df.date),
+                        style: Theme.of(context).textTheme.bodyLarge),
                     const Spacer(),
                     Text('${df.dailyTempMin}°C'),
                     const SizedBox(width: 8),
                     Text('${df.dailyTempMax}°C'),
                   ],
                 ),
+              ),
+              const Divider(
+                color: Colors.white,
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

@@ -48,32 +48,37 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
         appBar: AppBar(title: const Text('Weather App')),
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                TextField(
-                  onSubmitted: (value) => _search(value),
-                  onChanged: (value) => setState(() {
-                    _text = value;
-                    _searchFailed = false;
-                  }),
-                  decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      hintText: 'Enter city name',
-                      suffixIcon: IconButton(
-                        onPressed: () => _search(_text),
-                        icon: const Icon(Icons.search),
-                      )),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+          child: Center(
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 600.0),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
                   children: [
-                    if (_searchFailed) Text('No results for $_text'),
-                    for (var city in cities) CitySearchResult(city: city),
+                    TextField(
+                      onSubmitted: (value) => _search(value),
+                      onChanged: (value) => setState(() {
+                        _text = value;
+                        _searchFailed = false;
+                      }),
+                      decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          hintText: 'Enter city name',
+                          suffixIcon: IconButton(
+                            onPressed: () => _search(_text),
+                            icon: const Icon(Icons.search),
+                          )),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        if (_searchFailed) Text('No results for $_text'),
+                        for (var city in cities) CitySearchResult(city: city),
+                      ],
+                    )
                   ],
-                )
-              ],
+                ),
+              ),
             ),
           ),
         ));

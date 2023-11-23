@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/screens/search_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-
 void main() async {
   await dotenv.load(fileName: '.env');
   runApp(const WeatherApp());
@@ -26,7 +25,6 @@ class _WeatherAppState extends State<WeatherApp> {
       initialRoute: '/',
       routes: {
         '/': (context) => const SearchScreen(),
-        '/icon': (context) => Image.asset('assets/icons/10d.png'),
       },
     );
   }
