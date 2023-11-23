@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_app/controllers/weather_controller.dart';
 
 class WeatherScreen extends StatefulWidget {
@@ -24,32 +25,53 @@ class _WeatherScreenState extends State<WeatherScreen> {
     super.initState();
   }
 
-  List<Widget> buildForecastCards(List<WeatherForecast> forecasts) {
+  List<Widget> buildForecastCards(List<DailyWeather> dailyForecasts) {
     var cards = <Widget>[];
 
-    String format(int num) => num.toString().padLeft(2, '0');
-
-    for (var f in forecasts) {
-      var dt = f.dateTime;
+    for (var df in dailyForecasts) {
       var card = Card(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(children: [
-            Text('${format(dt.day)}/${format(dt.month)}/${dt.year}'),
-            const SizedBox(width: 10),
-            Text('${format(dt.hour)}:${format(dt.minute)}'),
-            const SizedBox(width: 10),
-            Text('${f.tempMin} °C'),
-            const SizedBox(width: 10),
-            Text(f.description),
-            const SizedBox(width: 10),
-            Image.asset('assets/icons/${f.icon}.png', width: 32),
-            const SizedBox(width: 10),
-          ]),
+          padding: const EdgeInsets.only(bottom: 12.0),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(DateFormat('EEEE dd/MM/yyyy').format(df.date)),
+                    const Spacer(),
+                    Text('${df.dailyTempMin}°C'),
+                    const SizedBox(width: 8),
+                    Text('${df.dailyTempMax}°C'),
+                  ],
+                ),
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    for (var f in df.forecasts)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        child: Column(
+                          children: [
+                            Text(DateFormat('HH:mm').format(f.dateTime)),
+                            Image.asset('assets/icons/${f.icon}.png', width: 32),
+                            Text(f.description),
+                            Text('${f.temp} °C'),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       );
       cards.add(card);
     }
+
     return cards;
   }
 
@@ -65,10 +87,15 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       Text('${snapshot.data!.cityInfo.name}, ${snapshot.data!.cityInfo.country}')),
               body: SafeArea(
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      for (var card in buildForecastCards(snapshot.data!.forecasts)) card,
-                    ],
+                  child: Center(
+                    child: Container(
+                      constraints: const BoxConstraints(maxWidth: 600),
+                      child: Column(
+                        children: [
+                          for (var card in buildForecastCards(snapshot.data!.dailyForecasts)) card,
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),

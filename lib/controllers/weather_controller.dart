@@ -79,14 +79,58 @@ class WeatherForecast {
   }
 }
 
+class DailyWeather {
+  late DateTime date;
+  late double dailyTempMax;
+  late double dailyTempMin;
+  List<WeatherForecast> forecasts;
+
+  DailyWeather({required this.forecasts}) {
+    _setDailyTempMax();
+    _setDailyTempMin();
+    date = forecasts[0].dateTime;
+  }
+
+  void _setDailyTempMax() {
+    double maxTemp = double.negativeInfinity;
+    for (var f in forecasts) {
+      if (maxTemp < f.tempMax) maxTemp = f.tempMax;
+    }
+    dailyTempMax = maxTemp;
+  }
+
+  void _setDailyTempMin() {
+    double minTemp = double.infinity;
+    for (var f in forecasts) {
+      if (minTemp > f.tempMin) minTemp = f.tempMin;
+    }
+    dailyTempMin = minTemp;
+  }
+}
+
 class Weather {
-  final List<WeatherForecast> forecasts;
+  List<DailyWeather> dailyForecasts = [];
   final CityInfo cityInfo;
 
-  const Weather({
-    required this.forecasts,
-    required this.cityInfo,
-  });
+  Weather(List<WeatherForecast> forecasts, {required this.cityInfo}) {
+    var triHourlyForecasts = <WeatherForecast>[];
+    DateTime date = forecasts[0].dateTime;
+
+    for (var f in forecasts) {
+      if (triHourlyForecasts.isNotEmpty && date.day != f.dateTime.day) {
+        dailyForecasts.add(DailyWeather(forecasts: triHourlyForecasts));
+        triHourlyForecasts = [];
+      }
+      triHourlyForecasts.add(f);
+      date = f.dateTime;
+    }
+
+    if (triHourlyForecasts.isNotEmpty) {
+      dailyForecasts.add(DailyWeather(forecasts: triHourlyForecasts));
+    }
+  }
+
+  List<DailyWeather> getDailyForecasts() => dailyForecasts;
 }
 
 Future<Weather> fetch5DayWeather(double lat, double lon) async {
@@ -103,7 +147,7 @@ Future<Weather> fetch5DayWeather(double lat, double lon) async {
       forecasts.add(WeatherForecast.fromJson(result));
     }
 
-    return Weather(forecasts: forecasts, cityInfo: cityInfo);
+    return Weather(forecasts, cityInfo: cityInfo);
   } else {
     throw Exception('Failed to fetch data for coordinates given');
   }
