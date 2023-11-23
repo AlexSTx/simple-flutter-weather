@@ -25,6 +25,7 @@ class _WeatherAppState extends State<WeatherApp> {
       initialRoute: '/',
       routes: {
         '/': (context) => const SearchScreen(),
+        '/icon': (context) => Image.asset('assets/icons/10d.png'),
       },
     );
   }

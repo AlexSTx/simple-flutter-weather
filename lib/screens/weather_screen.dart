@@ -43,7 +43,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
             const SizedBox(width: 10),
             Text(f.description),
             const SizedBox(width: 10),
-            Text(f.icon),
+            Image.asset('assets/icons/${f.icon}.png', width: 32),
             const SizedBox(width: 10),
           ]),
         ),
