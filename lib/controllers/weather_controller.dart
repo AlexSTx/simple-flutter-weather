@@ -39,7 +39,7 @@ class CityInfo {
 }
 
 class WeatherForecast {
-  final DateTime? dateTime;
+  final DateTime dateTime;
   final double temp;
   final double feelsLike;
   final double tempMin;
