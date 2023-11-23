@@ -66,12 +66,12 @@ class WeatherForecast {
   factory WeatherForecast.fromJson(Map<String, dynamic> json) {
     return WeatherForecast(
       dateTime: DateTime.fromMillisecondsSinceEpoch((json['dt'] as int) * 1000),
-      temp: json['main']['temp'] as double,
-      feelsLike: json['main']['feels_like'] as double,
-      tempMin: json['main']['temp_min'] as double,
-      tempMax: json['main']['temp_max'] as double,
-      pressure: json['main']['pressure'] as double,
-      humidity: json['main']['humidity'] as double,
+      temp: json['main']['temp'].toDouble() as double,
+      feelsLike: json['main']['feels_like'].toDouble() as double,
+      tempMin: json['main']['temp_min'].toDouble() as double,
+      tempMax: json['main']['temp_max'].toDouble() as double,
+      pressure: json['main']['pressure'].toDouble() as double,
+      humidity: json['main']['humidity'].toDouble() as double,
       mainWeatherStatus: json['weather'][0]['main'] as String,
       description: json['weather'][0]['description'] as String,
       icon: json['weather'][0]['icon'] as String,

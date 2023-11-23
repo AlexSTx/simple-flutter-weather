@@ -41,9 +41,25 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     Text(DateFormat('EEEE dd/MM/yyyy').format(df.date),
                         style: Theme.of(context).textTheme.bodyLarge),
                     const Spacer(),
-                    Text('min: ${df.dailyTempMin}°C'),
+                    Column(
+                      children: [
+                        const Text('min'),
+                        Text(
+                          '${df.dailyTempMin}°C',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ],
+                    ),
                     const SizedBox(width: 8),
-                    Text('max: ${df.dailyTempMax}°C'),
+                    Column(
+                      children: [
+                        const Text('max'),
+                        Text(
+                          '${df.dailyTempMax}°C',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
