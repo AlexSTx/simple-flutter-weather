@@ -57,13 +57,16 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     for (var f in df.forecasts)
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: Column(
-                          children: [
-                            Text(DateFormat('HH:mm').format(f.dateTime)),
-                            Image.asset('assets/icons/${f.icon}.png', width: 32),
-                            Text(f.description),
-                            Text('${f.temp} °C'),
-                          ],
+                        child: SizedBox(
+                          width: 110,
+                          child: Column(
+                            children: [
+                              Text(DateFormat('HH:mm').format(f.dateTime)),
+                              Image.asset('assets/icons/${f.icon}.png', width: 32),
+                              Text(f.description),
+                              Text('${f.temp} °C'),
+                            ],
+                          ),
                         ),
                       ),
                   ],
