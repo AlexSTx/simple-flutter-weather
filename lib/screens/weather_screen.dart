@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_app/controllers/air_pollution_controller.dart';
 import 'package:weather_app/controllers/weather_controller.dart';
+import 'package:weather_app/screens/air_pollution_screen.dart';
 
 class WeatherScreen extends StatefulWidget {
   final double lat;
@@ -115,6 +117,17 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       constraints: const BoxConstraints(maxWidth: 600),
                       child: Column(
                         children: [
+                          ElevatedButton(
+                            onPressed: () async {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        AirPollutionScreen(lat: widget.lat, lon: widget.lon)),
+                              );
+                            },
+                            child: const Text('Qualidade do Ar'),
+                          ),
                           for (var card in buildForecastCards(snapshot.data!.dailyForecasts)) card,
                         ],
                       ),

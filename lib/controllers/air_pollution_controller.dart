@@ -50,7 +50,7 @@ Future<AirPollution> fetchAirPollution(double lat, double lon) async {
 
   if (response.statusCode == 200) {
     var decodedResponse = jsonDecode(response.body);
-    return AirPollution.fromJson(decodedResponse[0]);
+    return AirPollution.fromJson(decodedResponse['list'][0]);
   } else {
     throw Exception('Failed to fetch air pollution data for coordinates given');
   }

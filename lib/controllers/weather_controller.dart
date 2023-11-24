@@ -134,8 +134,6 @@ class Weather {
 }
 
 Future<Weather> fetch5DayWeather(double lat, double lon) async {
-  print('$lat $lon');
-
   final response = await http.get(Uri.parse(
       'https://api.openweathermap.org/data/2.5/forecast?lat=$lat&lon=$lon&units=metric&appid=${dotenv.env['API_KEY']}'));
 
